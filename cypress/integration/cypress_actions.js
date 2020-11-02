@@ -1,12 +1,12 @@
 describe('Homework #44, Basic level', () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit('https://demoqa.com/login');
-    });
-    it('01. Login', () => {
         cy.get('#userName').type('IronLady');
         cy.get('#password').type('Qw12345!');
         cy.get('#login').click();
-
+        cy.wait(3000);
+    });
+    it('01. Part 1', () => {
         cy.get('#userName-value').contains('IronLady').should('exist');
 
         cy.get('#gotoStore').click();
@@ -16,20 +16,19 @@ describe('Homework #44, Basic level', () => {
         cy.get('[id="see-book-Speaking JavaScript"]').click();
         cy.get('.text-right.fullButton').click();
    
-        cy.on('window:alert 1', (str) => {
+        cy.on('window:alert', (str) => {
             expect(str).to.equal(`Book added to your collection.`)
            })
-
+        });
+    it('02. Part 2', () => {    
         cy.get(':nth-child(6) > .element-list > .menu-list > #item-3').click();
         cy.get('[id="see-book-Speaking JavaScript"]').contains('Speaking JavaScript').should('exist')
         cy.get('#delete-record-undefined').click()
         cy.get('.modal-content #closeSmallModal-ok').click()
 
-        cy.on('window:alert 2', (str) => {
+        cy.on('window:alert', (str) => {
             expect(str).to.equal(`Book added to your collection.`)
            })
-
-
     }); 
     
 });
