@@ -1,13 +1,8 @@
 
 describe ('Homework', () => {
-    beforeEach('1', () =>{
-        cy.visit('https://demoqa.com/login');
-        cy.get('[placeholder="UserName"]').type('pashko');
-        cy.get('[placeholder="Password"]').type('!12345Qwerty');
-        cy.get('#login').click();
-        cy.wait(1000);
-    });
+   
     it ('Test1', () => {
+        cy.visit('https://demoqa.com/profile')
         cy.get('#userName-value').contains('pashko').should('exist');
 
         cy.get(':nth-child(6) > .element-list > .menu-list > #item-2').click();
