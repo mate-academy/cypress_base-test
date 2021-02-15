@@ -24,6 +24,8 @@ describe ('Basic Homework | Yurii Parfinenko', () => {
         cy.contains('.mr-2', 'Speaking JavaScript').should('contain', 'Speaking JavaScript');
         cy.get('[title="Delete"]').click();
         cy.get('#closeSmallModal-ok').click();
-        cy.contains('.mr-2', 'Speaking JavaScript').should('not.exist', 'Speaking JavaScript');
+        cy.on('window:alert', (alert) => {
+            expect(alert).to.equal('Book deleted.');
+        });
     });
 });
