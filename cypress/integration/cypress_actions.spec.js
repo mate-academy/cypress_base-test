@@ -1,23 +1,33 @@
 /// <reference types="cypress" />
 
 describe('', () => {
+    const user = {
+        username: 'Fat_Cartman',
+        password: '1qaz!QAZ'
+    };
+    const book = {
+        title: 'Speaking JavaScript'
+    }
+
     beforeEach(function () {
-        cy.visit("/login");
+        cy.login();
     });
 
-    it('Login', () => {
-        cy.get('#userName').type('Fat_Cartman');
-        cy.get('#password').type('1qaz!QAZ{enter}');
+    it('Login check', () => {
         cy.get('#userName-value').contains('Fat_Cartman').should('exist');
-    
+    });
+
+    it('Book add', () => {
         cy.visit("/books");
-        cy.get('#searchBox').type('Speaking JavaScript');
+        cy.get('#searchBox').type(book.title);
         cy.contains('[href="/books?book=9781449365035"]', 'Speaking JavaScript').click();
         cy.contains('#addNewRecordButton', 'Add To Your Collection').click();
         cy.on('window:alert_1', (str) => {
             expect(str).to.equal(`Book added to your collection.`);
         });
-
+    });
+    
+    it('Delete book', () => {
         cy.visit("/profile");
         cy.get('#delete-record-undefined').click();
         cy.get('#closeSmallModal-ok').click();
