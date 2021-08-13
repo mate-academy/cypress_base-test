@@ -22,6 +22,7 @@ it('', () =>{
         expect(str).to.equal(`Book added to your collection.`)
        });
 });
+
 it('', () =>{
     cy.contains('#item-3', 'Profile').click();
     cy.contains('.rt-tr-group', 'Speaking JavaScript')
