@@ -23,3 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Cookies.defaults({
+ preserve: ["token", "userName", "userID", "expires"]
+})
