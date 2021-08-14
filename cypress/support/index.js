@@ -15,6 +15,10 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-
+import './commands/login'
+import './beforeAll'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+Cypress.Cookies.defaults({
+    preserve: ['token', 'expires', 'userName', 'userID']
+});
