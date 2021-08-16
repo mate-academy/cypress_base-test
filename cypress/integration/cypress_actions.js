@@ -28,8 +28,8 @@ describe('Test to add and delete book from collection', () => {
     cy.contains('.rt-tr-group', 'Speaking JavaScript')
       .find('#delete-record-undefined').click();
     cy.get('#closeSmallModal-ok').click();
-      cy.on('window:alert 2', (str) => {
-        expect(str).to.equal('Book deleted.');
-      });
+    cy.on('window:alert 2', (str) => {
+      expect(str).to.equal('Book deleted.');
     });
   });
+});
