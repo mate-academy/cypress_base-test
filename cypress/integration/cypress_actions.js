@@ -1,36 +1,29 @@
 /// <reference types='cypress' />
 
-describe('Adding and removing of the book in a collection by registered user', () => {
-    const book = {
-      title: 'Speaking JavaScript',
-      publisher: `O'Reilly Media`,
-      author: 'Axel Rauschmayer',
-      description: 'Like it or not, JavaScript'
-    };
+describe ('Adding and removing of the book in a collection by registered user', () => {
 
-    it('Adding book to a collection', () => {
+  it('Login and user data validation', () => {
+      cy.visit('https://demoqa.com/login');
+      cy.get('#userName-value').should('contain', 'Rolling');
+  });
+
+  it('Book Store Search', () => {
       cy.contains('#item-2', 'Book Store').click();
-      cy.get('#searchBox').type(book.title);
-
-      cy.contains('.rt-tr.-odd', book.title)
-        .should('contain', book.author)
-        .and('contain', book.publisher);
-      cy.get('[id="see-book-Speaking JavaScript"]').click();
-
-      cy.get('#description-wrapper').should('contain', book.description);
-      cy.contains('#addNewRecordButton', 'Add To Your Collection').click();
+      cy.get('#searchBox').type('Speaking JavaScript{enter}');
+      cy.contains('.mr-2', 'Speaking JavaScript').click();
+      cy.contains('[type="button"]', 'Add To Your Collection').click();
       cy.on('window:alert', (alert) => {
-        expect(alert).to.equal(`Book added to your collection.`)
-       });
-    });
+          expect(alert).to.equal('Book added to your collection.');
+      });
+  });
 
-    it('Removing book from a collection', () => {
-      cy.visit('/profile');
-
-      cy.get('#delete-record-undefined').click();
+  it('Profile Book Delete', () => {
+      cy.contains('#item-3', 'Profile').click();
+      cy.contains('.mr-2', 'Speaking JavaScript').should('contain', 'Speaking JavaScript');
+      cy.get('[title="Delete"]').click();
       cy.get('#closeSmallModal-ok').click();
-      cy.get('window:alert', (alert) => {
-        expect(alert).to.equal(`Book deleted.`)
-       });
-    });
+      cy.on('window:alert', (alert) => {
+          expect(alert).to.equal('Book deleted.');
+      });
+  });
 });
